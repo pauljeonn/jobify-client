@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Wrapper from '../assets/wrappers/RegisterPage';
+import Alert from '../components/Alert';
 import FormRow from '../components/FormRow';
 import Logo from '../components/Logo';
 
@@ -8,6 +9,7 @@ const initialState = {
 	email: '',
 	password: '',
 	isMember: true,
+	showAlert: false,
 };
 
 const RegisterPage = () => {
@@ -26,6 +28,7 @@ const RegisterPage = () => {
 			<form className="form" onSubmit={onSubmit}>
 				<Logo />
 				<h3>Login</h3>
+				{values.showAlert && <Alert />}
 				{/* Name input */}
 				<FormRow
 					type="text"
