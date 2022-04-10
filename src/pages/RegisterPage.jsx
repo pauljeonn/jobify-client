@@ -14,10 +14,15 @@ const initialState = {
 
 const RegisterPage = () => {
 	const [values, setValues] = useState(initialState);
-	// global state and useNavigate
+
+	const toggleMember = () => {
+		setValues({ ...values, isMember: !values.isMember });
+	};
+
 	const handleChange = (e) => {
 		console.log(e.target);
 	};
+
 	const onSubmit = (e) => {
 		e.preventDefault();
 		console.log(e.target);
@@ -27,15 +32,17 @@ const RegisterPage = () => {
 		<Wrapper className="full-page">
 			<form className="form" onSubmit={onSubmit}>
 				<Logo />
-				<h3>Login</h3>
+				<h3>{values.isMember ? 'Login' : 'Register'}</h3>
 				{values.showAlert && <Alert />}
 				{/* Name input */}
-				<FormRow
-					type="text"
-					name="name"
-					value={values.name}
-					handleChange={handleChange}
-				/>
+				{!values.isMember && (
+					<FormRow
+						type="text"
+						name="name"
+						value={values.name}
+						handleChange={handleChange}
+					/>
+				)}
 				{/* Email input */}
 				<FormRow
 					type="email"
@@ -53,6 +60,12 @@ const RegisterPage = () => {
 				<button type="submit" className="btn btn-block">
 					Submit
 				</button>
+				<p>
+					{values.isMember ? 'Not a member yet?' : 'Already a member?'}
+					<button tpye="button" onClick={toggleMember} className="member-btn">
+						{values.isMember ? 'Register' : 'Login'}
+					</button>
+				</p>
 			</form>
 		</Wrapper>
 	);
